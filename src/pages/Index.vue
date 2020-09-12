@@ -1,13 +1,12 @@
 <template>
   <q-page class="flex flex-center">
-    <img
-      alt="Quasar logo"
-      src="~assets/quasar-logo-full.svg"
-    >
-    <q-btn @click="addPerson">add!</q-btn>
-    <p v-for="(data, index) in Person" :key="index">
-      {{ data }}
-    </p>
+    <div >
+      <q-table
+        :data="Person"
+        :columns="columns"
+        row-key="name"
+      />
+    </div>
   </q-page>
 </template>
 
@@ -19,7 +18,22 @@ export default {
   name: 'PageIndex',
   data () {
     return {
-      Person: {}
+      Person: [],
+      columns: [
+        { name: 'id', label: 'id', field: 'id' },
+        { name: 'name', label: '姓名', field: 'name' },
+        { name: 'address', label: '地址', field: 'address' },
+        { name: 'privateAddress', label: '私人地址', field: 'privateAddress' },
+        { name: 'phone', label: '電話', field: 'phone' },
+        { name: 'cellPhone', label: '行動電話', field: 'cellPhone' },
+        { name: 'privatePhone', label: '私人電話', field: 'privatePhone' },
+        { name: 'email', label: '電子信箱', field: 'email' },
+        { name: 'note', label: '備註', field: 'note' },
+        { name: 'company', label: '公司', field: 'company' },
+        { name: 'organization', label: '單位', field: 'organization' },
+        { name: 'title', label: '職稱', field: 'title' },
+        { name: 'type', label: '類別', field: 'type' }
+      ]
     }
   },
 
