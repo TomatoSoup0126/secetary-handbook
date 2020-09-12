@@ -4,7 +4,10 @@
       alt="Quasar logo"
       src="~assets/quasar-logo-full.svg"
     >
-  <q-btn @click="addPerson">add!</q-btn>
+    <q-btn @click="addPerson">add!</q-btn>
+    <p v-for="(data, index) in Person" :key="index">
+      {{ data }}
+    </p>
   </q-page>
 </template>
 
@@ -16,12 +19,18 @@ export default {
   name: 'PageIndex',
   data () {
     return {
-      Person: []
+      Person: {}
     }
   },
 
-  firestore: {
-    Person: fStore.collection('Person')
+  mounted: function () {
+    this.$bind(
+      'Person',
+      fStore.collection('Person')
+    )
+  },
+
+  computed: {
   },
 
   methods: {
@@ -29,6 +38,7 @@ export default {
       if (this.inputMessage === '') return
 
       fStore.collection('Person').add({
+        id: '',
         name: '水龍兒',
         address: '新店歐',
         privateAddress: '三峽歐',
