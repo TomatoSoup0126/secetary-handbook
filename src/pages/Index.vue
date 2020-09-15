@@ -3,7 +3,7 @@
     <button @click="addPerson">add!</button>
     <div >
       <q-table
-        :data="Person"
+        :data="items"
         :columns="columns"
         row-key="name"
       />
@@ -20,7 +20,8 @@ export default {
   name: 'PageIndex',
   data () {
     return {
-      Person: [],
+      user: {},
+      items: [],
       columns: [
         { name: 'id', label: 'id', field: 'id' },
         { name: 'name', label: '姓名', field: 'name' },
@@ -40,10 +41,12 @@ export default {
   },
 
   mounted: function () {
-    this.$bind(
-      'Person',
-      fStore.collection('Person')
-    )
+    db.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.user = user
+        this.$bind('items', fStore.collection(`user/${this.user.uid}/items`))
+      }
+    })
   },
 
   computed: {
@@ -57,7 +60,7 @@ export default {
     addPerson: function () {
       if (this.inputMessage === '') return
 
-      fStore.collection('Person').doc(this.userId).set({
+      fStore.collection(`user/${this.user.uid}/items`).add({
         id: '',
         name: '水龍兒',
         address: '新店歐',

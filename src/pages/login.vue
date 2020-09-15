@@ -8,8 +8,9 @@
 
 <script>
 // import firebase from 'firebase/app'
-// import { db } from '../js/db'
-// const fAuth = db.auth()
+import { db } from '../js/db'
+const fAuth = db.auth()
+
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
@@ -24,15 +25,13 @@ export default {
   },
 
   created () {
-    // fAuth.onAuthStateChanged(user => {
-    //   if (user) {
-    //     this.user = user
-    //     this.isAuth = true
-    //   } else {
-    //     // this.user = {}
-    //     // this.isAuth = false
-    //   }
-    // })
+    fAuth.onAuthStateChanged(user => {
+      if (user) {
+        console.log('is login')
+      } else {
+        console.log('not yet login')
+      }
+    })
   },
 
   mounted: function () {
@@ -52,23 +51,6 @@ export default {
       'Signin',
       'Logout'
     ])
-    // login () {
-    //   const authProvider = new firebase.auth.GoogleAuthProvider()
-    //   fAuth.signInWithPopup(authProvider)
-    //     .then(result => {
-    //       // this.user = result.user
-    //       // this.isAuth = true
-    //     })
-    //     .catch(err => console.error(err))
-    // },
-    // logout () {
-    //   fAuth.signOut()
-    //     .then(() => {
-    //       // this.user = {}
-    //       // this.isAuth = false
-    //     })
-    //     .catch(err => console.log(err))
-    // }
   }
 }
 </script>
