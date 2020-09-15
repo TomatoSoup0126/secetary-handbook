@@ -1,5 +1,6 @@
 <template>
   <q-page class="flex flex-center">
+    <button @click="addPerson">add!</button>
     <div >
       <q-table
         :data="Person"
@@ -12,6 +13,7 @@
 
 <script>
 import { db } from '../js/db'
+import { mapGetters } from 'vuex'
 const fStore = db.firestore()
 
 export default {
@@ -45,13 +47,17 @@ export default {
   },
 
   computed: {
+    ...mapGetters([
+      'userId',
+      'isAuth'
+    ])
   },
 
   methods: {
     addPerson: function () {
       if (this.inputMessage === '') return
 
-      fStore.collection('Person').add({
+      fStore.collection('Person').doc(this.userId).set({
         id: '',
         name: '水龍兒',
         address: '新店歐',
