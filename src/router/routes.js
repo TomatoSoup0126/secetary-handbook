@@ -1,11 +1,12 @@
+import { Store } from '../store/index.js'
 
 const routes = [
 
   {
-    path: '/login',
+    path: '/auth',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/login.vue') }
+      { path: '', component: () => import('pages/auth.vue') }
     ]
   },
 
@@ -13,8 +14,15 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/index.vue') }
-    ]
+      { path: '', component: () => import('pages/dashboard.vue') }
+    ],
+    beforeEnter (to, from, next) {
+      if (Store.getters.userId === '') {
+        next('/auth')
+      } else {
+        next()
+      }
+    }
   },
 
   // Always leave this as last one,

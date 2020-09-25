@@ -3,6 +3,7 @@
     <q-header elevated>
       <q-toolbar>
         <q-btn
+          v-if="userId"
           flat
           dense
           round
@@ -12,14 +13,17 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+          The Handbook
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div>
+          <q-btn v-if="userId" @click="handleLogout">Logout</q-btn>
+        </div>
       </q-toolbar>
     </q-header>
 
     <q-drawer
+      v-if="userId"
       v-model="leftDrawerOpen"
       show-if-above
       bordered
@@ -48,6 +52,8 @@
 
 <script>
 import EssentialLink from 'components/EssentialLink.vue'
+
+import { mapActions, mapGetters } from 'vuex'
 
 const linksData = [
   {
@@ -101,6 +107,23 @@ export default {
     return {
       leftDrawerOpen: false,
       essentialLinks: linksData
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'userId'
+    ])
+  },
+
+  methods: {
+    ...mapActions([
+      'Signin',
+      'Logout'
+    ]),
+    handleLogout () {
+      this.Logout().then(res => {
+        this.$router.push('/auth')
+      })
     }
   }
 }

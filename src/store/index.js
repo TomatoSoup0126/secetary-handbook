@@ -17,18 +17,20 @@ Vue.use(Vuex)
  * with the Store instance.
  */
 
+const Store = new Vuex.Store({
+  modules: {
+    // example
+    user
+  },
+
+  // enable strict mode (adds overhead!)
+  // for dev mode only
+  strict: process.env.DEV,
+  getters
+})
+
 export default function (/* { ssrContext } */) {
-  const Store = new Vuex.Store({
-    modules: {
-      // example
-      user
-    },
-
-    // enable strict mode (adds overhead!)
-    // for dev mode only
-    strict: process.env.DEV,
-    getters
-  })
-
   return Store
 }
+
+export { Store }

@@ -1,5 +1,6 @@
 import firebase from 'firebase/app'
 import { db } from '../js/db'
+// import Router from '../router'
 const fAuth = db.auth()
 
 const user = {

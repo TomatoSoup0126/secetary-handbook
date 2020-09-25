@@ -1,8 +1,7 @@
 <template>
   <q-page class="flex flex-center">
-    <q-btn v-if="!isAuth" @click="Signin">Signin!</q-btn>
+    <q-btn v-if="!userId" @click="Signin">Signin!</q-btn>
     <q-btn v-else @click="Logout">Logout</q-btn>
-
   </q-page>
 </template>
 
@@ -27,9 +26,7 @@ export default {
   created () {
     fAuth.onAuthStateChanged(user => {
       if (user) {
-        console.log('is login')
-      } else {
-        console.log('not yet login')
+        this.$router.push('/')
       }
     })
   },
