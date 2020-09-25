@@ -1,6 +1,5 @@
 <template>
-  <q-page class="flex flex-center">
-    <button @click="addPerson">add!</button>
+  <q-page class="">
     <div >
       <q-table
         :data="items"
@@ -41,13 +40,6 @@ export default {
   },
 
   mounted: function () {
-    // db.auth().onAuthStateChanged((user) => {
-    //   if (user) {
-    //     this.user = user
-    //     this.$bind('items', fStore.collection(`user/${this.user.uid}/items`))
-    //   }
-    // })
-
     this.$bind('items', fStore.collection(`user/${this.userId}/items`))
   },
 

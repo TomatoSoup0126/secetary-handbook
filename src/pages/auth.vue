@@ -38,8 +38,7 @@ export default {
   computed: {
     ...mapGetters([
       'userId',
-      'isAuth',
-      'token'
+      'isAuth'
     ])
   },
 
